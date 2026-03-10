@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Meeting History</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#667eea,#764ba2);
+margin:0;
+padding:40px;
+color:white;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:white;
+color:#333;
+padding:20px;
+border-radius:10px;
+margin-bottom:20px;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+h1{
+text-align:center;
+}
+
+a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📚 Meeting History</h1>
+
+{% for meeting in meetings %}
+
+<div class="card">
+
+<h3>{{meeting[0]}}</h3>
+
+<p>{{meeting[1]}}</p>
+
+<small>{{meeting[2]}}</small>
+
+</div>
+
+{% endfor %}
+
+<a href="/">⬅ Back to Home</a>
+
+</div>
+
+</body>
+
+</html>

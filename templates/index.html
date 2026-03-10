@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Meeting Summarizer</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#667eea,#764ba2);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:0;
+}
+
+.container{
+background:white;
+padding:40px;
+border-radius:15px;
+width:650px;
+box-shadow:0 20px 40px rgba(0,0,0,0.2);
+animation:fadeIn 1s ease;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#333;
+}
+
+input[type="text"]{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:16px;
+margin-bottom:15px;
+transition:0.3s;
+}
+
+textarea{
+width:100%;
+padding:15px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+resize:none;
+}
+
+button{
+margin-top:20px;
+width:100%;
+padding:15px;
+background:linear-gradient(135deg,#667eea,#764ba2);
+border:none;
+color:white;
+font-size:18px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.summary-box{
+margin-top:30px;
+padding:20px;
+background:#f3f3ff;
+border-radius:10px;
+border-left:6px solid #667eea;
+}
+
+.history-btn{
+display:block;
+text-align:center;
+margin-top:15px;
+color:#667eea;
+text-decoration:none;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🤖 AI Meeting Summarizer</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+<input type="text" name="title" placeholder="Meeting Title" required>
+
+<textarea name="transcript" rows="10"
+placeholder="Paste meeting transcript here..." ></textarea>
+<input type="file" name="file" accept=".txt,.pdf,.docx">
+
+<button type="submit">Generate Summary</button>
+
+</form>
+
+<a href="/history" class="history-btn">📚 View Meeting History</a>
+
+<a href="/dashboard" class="history-btn">📊 View Dashboard</a>
+
+{% if summary %}
+
+<div class="summary-box">
+
+<h3>Generated Summary</h3>
+
+<p>{{summary}}</p>
+
+<h3>Action Items</h3>
+
+<ul>
+{% for action in actions %}
+<li>{{action}}</li>
+{% endfor %}
+</ul>
+
+<form action="/download_pdf" method="POST">
+
+<input type="hidden" name="title" value="{{request.form.title}}">
+<input type="hidden" name="summary" value="{{summary}}">
+
+{% for action in actions %}
+<input type="hidden" name="actions" value="{{action}}">
+{% endfor %}
+
+<button type="submit">📄 Download Summary as PDF</button>
+
+</form>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>
